@@ -1,0 +1,1202 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>S&A PERFUM | عطرك بصمتك</title>
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+
+body{
+font-family:Arial,Tahoma,sans-serif;
+background:#ffffff;
+color:#17263d;
+line-height:1.7
+}
+
+header{
+position:sticky;
+top:0;
+z-index:50;
+background:rgba(255,255,255,.96);
+border-bottom:1px solid #dcecf5;
+padding:16px 6%;
+display:flex;
+align-items:center;
+justify-content:space-between;
+backdrop-filter:blur(10px)
+}
+
+.logo{
+font-size:24px;
+font-weight:bold;
+letter-spacing:2px;
+color:#17263d
+}
+
+.logo span{color:#76c8e8}
+
+.cart-btn{
+background:#76c8e8;
+color:#10243a;
+border:0;
+border-radius:25px;
+padding:10px 18px;
+font-weight:bold;
+cursor:pointer
+}
+
+.hero{
+min-height:540px;
+display:flex;
+align-items:center;
+justify-content:center;
+text-align:center;
+padding:70px 20px;
+background:
+radial-gradient(circle at center,#e9f9ff 0,#f8fcff 45%,#ffffff 80%)
+}
+
+.hero h1{
+font-size:56px;
+letter-spacing:5px;
+margin-bottom:10px;
+color:#17263d
+}
+
+.hero h1 span{color:#76c8e8}
+
+.hero p{
+font-size:20px;
+color:#53677f;
+margin-bottom:25px
+}
+
+.btn{
+display:inline-block;
+padding:13px 30px;
+border-radius:30px;
+background:#76c8e8;
+color:#10243a;
+text-decoration:none;
+font-weight:bold;
+border:0;
+cursor:pointer
+}
+
+section{padding:60px 6%}
+
+.title{
+text-align:center;
+margin-bottom:35px
+}
+
+.title h2{
+font-size:32px;
+color:#17263d
+}
+
+.title p{
+color:#71839a;
+margin-top:5px
+}
+
+.categories{
+display:flex;
+gap:12px;
+justify-content:center;
+flex-wrap:wrap;
+margin-bottom:35px
+}
+
+.category{
+padding:10px 22px;
+border:1px solid #c9e5f1;
+border-radius:25px;
+background:#f7fcff;
+color:#17263d;
+cursor:pointer;
+font-weight:bold
+}
+
+.category.active,
+.category:hover{
+background:#76c8e8;
+color:#10243a;
+border-color:#76c8e8
+}
+
+.products{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+gap:22px
+}
+
+.product{
+background:#fff;
+border:1px solid #dcecf5;
+border-radius:18px;
+overflow:hidden;
+transition:.25s;
+box-shadow:0 5px 18px rgba(30,90,120,.07)
+}
+
+.product:hover{
+transform:translateY(-5px);
+border-color:#76c8e8
+}
+
+.product-img{
+height:245px;
+background:linear-gradient(145deg,#eefaff,#f8fcff);
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:55px
+}
+
+.product-info{padding:20px}
+
+.product-info h3{
+font-size:20px;
+color:#17263d
+}
+
+.product-info .desc{
+color:#71839a;
+font-size:14px;
+margin:5px 0 12px
+}
+
+.sizes{
+display:flex;
+gap:8px;
+margin-bottom:12px
+}
+
+.size-btn{
+flex:1;
+padding:9px 5px;
+border:1px solid #c9e5f1;
+border-radius:9px;
+background:#f8fcff;
+color:#17263d;
+font-weight:bold;
+cursor:pointer
+}
+
+.size-btn.active{
+background:#76c8e8;
+border-color:#76c8e8;
+color:#10243a
+}
+
+.price{
+color:#1684b0;
+font-size:19px;
+font-weight:bold;
+margin-bottom:12px
+}
+
+.add{
+width:100%;
+padding:11px;
+border:0;
+border-radius:10px;
+background:#76c8e8;
+color:#10243a;
+font-weight:bold;
+cursor:pointer
+}
+
+.features{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+gap:18px
+}
+
+.feature{
+background:#f8fcff;
+border:1px solid #dcecf5;
+padding:25px;
+border-radius:15px;
+text-align:center
+}
+
+.feature h3{
+margin-bottom:8px;
+color:#1684b0
+}
+
+.feature p{
+color:#71839a;
+font-size:14px
+}
+
+footer{
+padding:40px 6%;
+text-align:center;
+border-top:1px solid #dcecf5;
+color:#71839a
+}
+
+footer strong{
+color:#17263d;
+font-size:20px;
+letter-spacing:3px
+}
+
+/* السلة */
+
+.overlay{
+display:none;
+position:fixed;
+inset:0;
+background:rgba(15,35,55,.35);
+z-index:90
+}
+
+.cart{
+position:fixed;
+top:0;
+right:-420px;
+width:min(420px,100%);
+height:100%;
+background:#fff;
+z-index:100;
+transition:.3s;
+padding:25px;
+display:flex;
+flex-direction:column;
+box-shadow:-5px 0 25px rgba(0,0,0,.1)
+}
+
+.cart.open{right:0}
+.overlay.open{display:block}
+
+.cart-head{
+display:flex;
+justify-content:space-between;
+align-items:center;
+border-bottom:1px solid #dcecf5;
+padding-bottom:15px
+}
+
+.close{
+background:none;
+border:0;
+color:#17263d;
+font-size:28px;
+cursor:pointer
+}
+
+.cart-items{
+flex:1;
+overflow:auto;
+padding:15px 0
+}
+
+.cart-item{
+display:flex;
+gap:10px;
+padding:14px 0;
+border-bottom:1px solid #e7f1f6
+}
+
+.cart-item-info{flex:1}
+
+.cart-item-info h4{
+font-size:15px;
+color:#17263d
+}
+
+.cart-item-info p{
+color:#1684b0
+}
+
+.qty{
+display:flex;
+gap:8px;
+align-items:center;
+margin-top:5px
+}
+
+.qty button{
+width:27px;
+height:27px;
+border:0;
+border-radius:50%;
+cursor:pointer;
+background:#eaf8fd
+}
+
+.remove{
+color:#d45c5c;
+background:none!important;
+border:0;
+cursor:pointer
+}
+
+.total{
+border-top:1px solid #dcecf5;
+padding-top:18px;
+font-size:21px;
+font-weight:bold;
+margin-bottom:15px
+}
+
+.checkout{
+background:#76c8e8;
+color:#10243a;
+border:0;
+border-radius:10px;
+padding:13px;
+font-weight:bold;
+cursor:pointer;
+width:100%
+}
+
+/* نموذج الطلب */
+
+.modal{
+display:none;
+position:fixed;
+inset:0;
+z-index:120;
+background:rgba(15,35,55,.55);
+align-items:center;
+justify-content:center;
+padding:20px
+}
+
+.modal.show{display:flex}
+
+.form{
+background:#fff;
+border:1px solid #dcecf5;
+border-radius:18px;
+padding:25px;
+width:min(500px,100%)
+}
+
+.form h2{
+margin-bottom:18px;
+color:#17263d
+}
+
+.form input,
+.form textarea{
+width:100%;
+padding:12px;
+margin-bottom:12px;
+background:#f8fcff;
+border:1px solid #c9e5f1;
+border-radius:9px;
+color:#17263d
+}
+
+.form textarea{
+height:80px;
+resize:none
+}
+
+.form .send{
+width:100%;
+padding:13px;
+border:0;
+border-radius:10px;
+background:#25d366;
+color:#fff;
+font-weight:bold;
+cursor:pointer
+}
+
+.cancel{
+width:100%;
+padding:10px;
+margin-top:8px;
+background:none;
+color:#71839a;
+border:0;
+cursor:pointer
+}
+</style>
+</head>
+
+<body>
+
+<header>
+<div class="logo">S<span>&</span>A PERFUM</div>
+
+<button class="cart-btn" onclick="openCart()">
+🛒 السلة (<span id="cartCount">0</span>)
+</button>
+</header>
+
+<div class="hero">
+<div>
+<h1>S<span>&</span>A PERFUM</h1>
+
+<p>عطرك... بصمتك</p>
+
+<p style="font-size:15px;color:#71839a">
+عطور فاخرة بروائح مميزة وأسعار مناسبة
+</p>
+
+<a href="#shop" class="btn">اكتشف العطور</a>
+</div>
+</div>
+
+<section id="shop">
+
+<div class="title">
+<h2>مجموعة العطور</h2>
+<p>اختر عطرك المفضل والحجم المناسب لك</p>
+</div>
+
+<div class="categories">
+
+<button class="category active"
+onclick="filterProducts('all',this)">
+الكل
+</button>
+
+<button class="category"
+onclick="filterProducts('men',this)">
+رجالي
+</button>
+
+<button class="category"
+onclick="filterProducts('women',this)">
+نسائي
+</button>
+
+<button class="category"
+onclick="filterProducts('unisex',this)">
+مشترك
+</button>
+
+</div>
+
+<div class="products" id="products"></div>
+
+</section>
+
+<section>
+
+<div class="title">
+<h2>لماذا S&A PERFUM؟</h2>
+</div>
+
+<div class="features">
+
+<div class="feature">
+<h3>جودة نهتم بها</h3>
+<p>نحرص على تقديم تجربة عطرية مميزة.</p>
+</div>
+
+<div class="feature">
+<h3>أسعار مناسبة</h3>
+<p>50 مل بـ 7 دنانير و100 مل بـ 12 دينار.</p>
+</div>
+
+<div class="feature">
+<h3>توصيل داخل الأردن</h3>
+<p>اطلب عطرك ونوصله لحد بابك.</p>
+</div>
+
+<div class="feature">
+<h3>اطلب بسهولة</h3>
+<p>أضف منتجاتك للسلة وأرسل طلبك مباشرة.</p>
+</div>
+
+</div>
+
+</section>
+
+<footer>
+
+<strong>S&A PERFUM</strong>
+
+<p>عطرك... بصمتك</p>
+
+<p>© 2026 S&A PERFUM</p>
+
+</footer>
+
+<div class="overlay" id="overlay" onclick="closeCart()"></div>
+
+<div class="cart" id="cart">
+
+<div class="cart-head">
+<h2>سلة المشتريات</h2>
+<button class="close" onclick="closeCart()">×</button>
+</div>
+
+<div class="cart-items" id="cartItems"></div>
+
+<div class="total">
+المجموع: <span id="total">0</span> د.أ
+</div>
+
+<button class="checkout" onclick="openCheckout()">
+إتمام الطلب
+</button>
+
+</div>
+
+<div class="modal" id="modal">
+
+<div class="form">
+
+<h2>إتمام الطلب</h2>
+
+<input id="name" placeholder="الاسم الكامل">
+
+<input id="phone" placeholder="رقم الهاتف">
+
+<input id="area" placeholder="المحافظة / المنطقة">
+
+<textarea id="address" placeholder="العنوان بالتفصيل"></textarea>
+
+<button class="send" onclick="sendOrder()">
+تأكيد الطلب عبر واتساب
+</button>
+
+<button class="cancel" onclick="closeCheckout()">
+إلغاء
+</button>
+
+</div>
+
+</div>
+
+<script>
+
+const products=[
+
+/* رجالي */
+
+{
+id:1,
+name:"IMAGINATION",
+desc:"منعش • حمضي • فاخر",
+category:"unisex",
+icon:"✨"
+},
+
+{
+id:2,
+name:"STRONGER WITH YOU INTENSELY",
+desc:"دافئ • حلو • جذاب",
+category:"men",
+icon:"🔥"
+},
+
+{
+id:3,
+name:"SAUVAGE DIOR",
+desc:"منعش • خشبي • رجولي",
+category:"men",
+icon:"🖤"
+},
+
+{
+id:4,
+name:"BACCARAT ROUGE 540",
+desc:"فاخر • عنبري • ملفت",
+category:"unisex",
+icon:"💎"
+},
+
+{
+id:5,
+name:"ALTHAÏR",
+desc:"فانيلا • دافئ • حلو",
+category:"men",
+icon:"🤎"
+},
+
+{
+id:6,
+name:"FIREPLACE",
+desc:"دافئ • خشبي • دخاني",
+category:"unisex",
+icon:"🔥"
+},
+
+{
+id:7,
+name:"BLEU DE CHANEL",
+desc:"حمضي • خشبي • أنيق",
+category:"men",
+icon:"🔵"
+},
+
+{
+id:8,
+name:"Y EAU DE PARFUM",
+desc:"منعش • نظيف • عصري",
+category:"men",
+icon:"💙"
+},
+
+{
+id:9,
+name:"1 MILLION",
+desc:"حلو • دافئ • جذاب",
+category:"men",
+icon:"✨"
+},
+
+{
+id:10,
+name:"ULTRA MALE",
+desc:"حلو • فانيلا • جذاب",
+category:"men",
+icon:"🔥"
+},
+
+{
+id:11,
+name:"LE MALE LE PARFUM",
+desc:"فانيلا • دافئ • أنيق",
+category:"men",
+icon:"🖤"
+},
+
+{
+id:12,
+name:"ACQUA DI GIÒ",
+desc:"منعش • بحري • نظيف",
+category:"men",
+icon:"🌊"
+},
+
+{
+id:13,
+name:"OMBRE NOMADE",
+desc:"عود • جلدي • فاخر",
+category:"unisex",
+icon:"🌑"
+},
+
+{
+id:14,
+name:"ERBA PURA",
+desc:"فاكهي • منعش • فاخر",
+category:"unisex",
+icon:"🍊"
+},
+
+{
+id:15,
+name:"HACIVAT",
+desc:"حمضي • خشبي • أنيق",
+category:"unisex",
+icon:"🍋"
+},
+
+{
+id:16,
+name:"LAYTON",
+desc:"فاكهي • فانيلا • دافئ",
+category:"unisex",
+icon:"👑"
+},
+
+/* نسائي */
+
+{
+id:17,
+name:"YSL LIBRE",
+desc:"زهري • أنيق • أنثوي",
+category:"women",
+icon:"🌸"
+},
+
+{
+id:18,
+name:"LIBRE INTENSE",
+desc:"دافئ • فانيلا • أنثوي",
+category:"women",
+icon:"🌹"
+},
+
+{
+id:19,
+name:"GOOD GIRL",
+desc:"حلو • جذاب • أنثوي",
+category:"women",
+icon:"🌹"
+},
+
+{
+id:20,
+name:"LA VIE EST BELLE",
+desc:"حلو • زهري • ناعم",
+category:"women",
+icon:"🌷"
+},
+
+{
+id:21,
+name:"COCO MADEMOISELLE",
+desc:"زهري • حمضي • راقي",
+category:"women",
+icon:"🌸"
+},
+
+{
+id:22,
+name:"J'ADORE",
+desc:"زهري • فاخر • أنثوي",
+category:"women",
+icon:"💐"
+},
+
+{
+id:23,
+name:"MISS DIOR",
+desc:"زهري • أنيق • ناعم",
+category:"women",
+icon:"🌷"
+},
+
+{
+id:24,
+name:"BURBERRY HER",
+desc:"فاكهي • حلو • أنثوي",
+category:"women",
+icon:"🍓"
+},
+
+{
+id:25,
+name:"DELINA",
+desc:"زهري • فاكهي • فاخر",
+category:"women",
+icon:"🌹"
+},
+
+{
+id:26,
+name:"PARADOXE",
+desc:"زهري • عنبري • عصري",
+category:"women",
+icon:"✨"
+},
+
+{
+id:27,
+name:"MY WAY",
+desc:"زهري • أبيض • أنثوي",
+category:"women",
+icon:"🌸"
+},
+
+{
+id:28,
+name:"SCANDAL",
+desc:"حلو • عسلي • جذاب",
+category:"women",
+icon:"🍯"
+},
+
+{
+id:29,
+name:"ALIEN",
+desc:"زهري • خشبي • مميز",
+category:"women",
+icon:"💜"
+},
+
+{
+id:30,
+name:"ANGEL NOVA",
+desc:"فاكهي • زهري • عصري",
+category:"women",
+icon:"🌺"
+},
+
+/* مشترك */
+
+{
+id:31,
+name:"KIRKE",
+desc:"فاكهي • مسكي • ناعم",
+category:"unisex",
+icon:"✨"
+},
+
+{
+id:32,
+name:"BACCARAT EXTRAIT",
+desc:"فاخر • حلو • عنبري",
+category:"unisex",
+icon:"💎"
+}
+
+];
+
+let cart=[];
+
+const prices={
+"50":7,
+"100":12
+};
+
+function displayProducts(list=products){
+
+const box=document.getElementById("products");
+
+box.innerHTML="";
+
+list.forEach(p=>{
+
+box.innerHTML+=`
+
+<div class="product">
+
+<div class="product-img">
+${p.icon}
+</div>
+
+<div class="product-info">
+
+<h3>${p.name}</h3>
+
+<div class="desc">
+${p.desc}
+</div>
+
+<div class="sizes">
+
+<button
+class="size-btn active"
+id="size-${p.id}-50"
+onclick="selectSize(${p.id},50)">
+50 مل
+</button>
+
+<button
+class="size-btn"
+id="size-${p.id}-100"
+onclick="selectSize(${p.id},100)">
+100 مل
+</button>
+
+</div>
+
+<div class="price"
+id="price-${p.id}">
+7.00 د.أ
+</div>
+
+<button class="add"
+onclick="addToCart(${p.id})">
+أضف إلى السلة
+</button>
+
+</div>
+</div>
+
+`;
+
+});
+
+}
+
+function selectSize(id,size){
+
+document
+.getElementById(`size-${id}-50`)
+.classList.remove("active");
+
+document
+.getElementById(`size-${id}-100`)
+.classList.remove("active");
+
+document
+.getElementById(`size-${id}-${size}`)
+.classList.add("active");
+
+document
+.getElementById(`price-${id}`)
+.textContent=prices[size].toFixed(2)+" د.أ";
+
+}
+
+function getSelectedSize(id){
+
+const button=document.querySelector(
+`#size-${id}-50.active`
+);
+
+if(button)return 50;
+
+return 100;
+}
+
+function filterProducts(category,button){
+
+document
+.querySelectorAll(".category")
+.forEach(b=>b.classList.remove("active"));
+
+button.classList.add("active");
+
+if(category==="all")
+displayProducts();
+
+else
+displayProducts(
+products.filter(p=>p.category===category)
+);
+
+}
+
+function addToCart(id){
+
+const product=products.find(p=>p.id===id);
+
+const size=getSelectedSize(id);
+
+const price=prices[size];
+
+const cartId=id+"-"+size;
+
+const item=cart.find(x=>x.cartId===cartId);
+
+if(item)
+
+item.qty++;
+
+else
+
+cart.push({
+...product,
+size:size,
+price:price,
+qty:1,
+cartId:cartId
+});
+
+updateCart();
+
+openCart();
+
+}
+
+function updateCart(){
+
+const box=document.getElementById("cartItems");
+
+box.innerHTML="";
+
+let total=0;
+
+let count=0;
+
+cart.forEach(item=>{
+
+total+=item.price*item.qty;
+
+count+=item.qty;
+
+box.innerHTML+=`
+
+<div class="cart-item">
+
+<div class="cart-item-info">
+
+<h4>
+${item.name} - ${item.size} مل
+</h4>
+
+<p>
+${item.price.toFixed(2)} د.أ
+</p>
+
+<div class="qty">
+
+<button onclick="changeQty('${item.cartId}',-1)">
+−
+</button>
+
+<span>
+${item.qty}
+</span>
+
+<button onclick="changeQty('${item.cartId}',1)">
++
+</button>
+
+<button class="remove"
+onclick="removeItem('${item.cartId}')">
+حذف
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+`;
+
+});
+
+if(cart.length===0){
+
+box.innerHTML=
+'<p style="text-align:center;color:#888;padding:40px 0">السلة فارغة</p>';
+
+}
+
+document.getElementById("total")
+.textContent=total.toFixed(2);
+
+document.getElementById("cartCount")
+.textContent=count;
+
+}
+
+function changeQty(cartId,value){
+
+const item=cart.find(x=>x.cartId===cartId);
+
+if(!item)return;
+
+item.qty+=value;
+
+if(item.qty<=0)
+
+cart=cart.filter(x=>x.cartId!==cartId);
+
+updateCart();
+
+}
+
+function removeItem(cartId){
+
+cart=cart.filter(x=>x.cartId!==cartId);
+
+updateCart();
+
+}
+
+function openCart(){
+
+document.getElementById("cart")
+.classList.add("open");
+
+document.getElementById("overlay")
+.classList.add("open");
+
+}
+
+function closeCart(){
+
+document.getElementById("cart")
+.classList.remove("open");
+
+document.getElementById("overlay")
+.classList.remove("open");
+
+}
+
+function openCheckout(){
+
+if(cart.length===0){
+
+alert("السلة فارغة");
+
+return;
+
+}
+
+document.getElementById("modal")
+.classList.add("show");
+
+}
+
+function closeCheckout(){
+
+document.getElementById("modal")
+.classList.remove("show");
+
+}
+
+function sendOrder(){
+
+const name=
+document.getElementById("name").value.trim();
+
+const phone=
+document.getElementById("phone").value.trim();
+
+const area=
+document.getElementById("area").value.trim();
+
+const address=
+document.getElementById("address").value.trim();
+
+if(!name||!phone||!area){
+
+alert("يرجى تعبئة الاسم ورقم الهاتف والمنطقة");
+
+return;
+
+}
+
+let message=
+`طلب جديد من S&A PERFUM%0A%0A`;
+
+message+=
+`الاسم: ${encodeURIComponent(name)}%0A`;
+
+message+=
+`الهاتف: ${encodeURIComponent(phone)}%0A`;
+
+message+=
+`المنطقة: ${encodeURIComponent(area)}%0A`;
+
+message+=
+`العنوان: ${encodeURIComponent(address)}%0A%0A`;
+
+message+=
+`المنتجات:%0A`;
+
+let total=0;
+
+cart.forEach(item=>{
+
+message+=
+`- ${encodeURIComponent(item.name)} - ${item.size} مل × ${item.qty} = ${(item.price*item.qty).toFixed(2)} د.أ%0A`;
+
+total+=item.price*item.qty;
+
+});
+
+message+=
+`%0Aالمجموع: ${total.toFixed(2)} د.أ`;
+
+const whatsapp="962791804464";
+
+window.open(
+`https://wa.me/${whatsapp}?text=${message}`,
+"_blank"
+);
+
+}
+
+displayProducts();
+
+updateCart();
+
+</script>
+
+</body>
+</html>
